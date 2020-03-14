@@ -6,11 +6,6 @@ module.exports = withOptimizedImages({
 
     // your config for other plugins or the general next.js here...
     exportTrailingSlash: true,
-    exportPathMap: function() {
-        return {
-            '/': { page: '/' }
-        };
-    },
     generateBuildId: async () => {
         return 'my-build-id'
     },
