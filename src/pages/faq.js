@@ -30,7 +30,7 @@ export default function Faq() {
                         margin: auto;
                         width: 538px;
                         padding-top: 95px;
-                        padding-bottom: 180px;
+                        padding-bottom: 100px;
                     }
                     
                     h3 {

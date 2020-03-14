@@ -10,5 +10,8 @@ module.exports = withOptimizedImages({
         return {
             '/': { page: '/' }
         };
-    }
+    },
+    generateBuildId: async () => {
+        return 'my-build-id'
+    },
 });
