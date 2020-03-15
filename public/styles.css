@@ -1,8 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Staatliches&display=swap');
-
-h1, h2, h3, h4, h5, h6, p, span, a {
-    font-family: 'Staatliches', cursive;
+html body {
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1em;
     color: #ffffff;
+}
+
+html body h1 {
+    font-family: 'Staatliches', serif;
 }
 
 p {
@@ -51,7 +56,6 @@ a:hover {
 }
 
 .logo-title {
-    font-family: 'Staatliches', cursive;
     font-style: normal;
     font-weight: normal;
     font-size: 50px;
@@ -59,9 +63,6 @@ a:hover {
 }
 
 .logo-subtitle {
-    font-family: Futura;
-    font-style: normal;
-    font-weight: 500;
     font-size: 14px;
     line-height: 19px;
 }

@@ -35,7 +35,6 @@ export default function Faq() {
                     }
                     
                     h3 {
-                        font-family: Futura;
                         font-style: normal;
                         font-weight: 500;
                         font-size: 22px;

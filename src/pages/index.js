@@ -114,7 +114,6 @@ export default function Index() {
                     
                     a,  span, label, button {
                         color: #FFFFFF;
-                        font-family: Futura;
                         font-style: normal;
                         font-weight: 500;
                         font-size: 14px;

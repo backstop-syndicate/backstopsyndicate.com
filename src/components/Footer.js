@@ -30,7 +30,6 @@ export default function Footer() {
                 .footer-container a,  .footer-container span {
                     text-align: center;
                     color: #FFFFFF;
-                    font-family: Futura;
                     font-style: normal;
                     font-weight: 500;
                     font-size: 14px;
