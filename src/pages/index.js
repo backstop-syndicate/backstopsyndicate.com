@@ -14,15 +14,15 @@ export default function Index() {
                         Deposit Amount:
                     </label>
                     <input
-                        type="text"
+                        type="number"
                         name="depositAmount"
                         id="depositAmount"
-                        value=""
+                        defaultValue={""}
                     />
                     <span className={"hint"}>I am the hero Defi needs. I am ready to to contribute</span>
                     <button className={"button success"}>GO!</button>
                     <span className={"success-links"}>
-                        <Link href={"/faq"}>
+                        <Link href={"/faq/"}>
                             <a>See participation rewards</a>
                         </Link>
                         <a href={"https://backstopsyndicate.eth/"}>
@@ -55,6 +55,18 @@ export default function Index() {
                         border-radius: 3px;
                         height: 32px;
                         border: none;
+                        color: #ffffff;
+                        font-size: 14px;
+                    }
+                    
+                    input::-webkit-outer-spin-button,
+                    input::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                    
+                    input[type=number] {
+                        -moz-appearance: textfield;
                     }
                     
                     .hint, label {

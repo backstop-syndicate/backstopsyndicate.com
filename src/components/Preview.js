@@ -10,7 +10,11 @@ export default function Preview({
     return (
         <Head>
             <title>Backstop Syndicate</title>
+            <meta name="description" content={description} />
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            <meta property="og:title" content={title} />
+            <meta property="og:url" content="https://https://backstopsyndicate.com/" />
+            <meta property="og:image" content="/preview.jpg" />
             <meta name="twitter:card" content={card} />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
