@@ -50,13 +50,14 @@ export default function Index() {
                     }
                     
                     input {
-                        width: 100%;
+                        width: calc(100% - 20px);
                         background: #433838;
                         border-radius: 3px;
                         height: 32px;
                         border: none;
                         color: #ffffff;
                         font-size: 14px;
+                        padding-left: 20px;
                     }
                     
                     input::-webkit-outer-spin-button,
@@ -96,6 +97,11 @@ export default function Index() {
                         font-size: 14px;
                         line-height: 32px;
                         cursor: pointer;
+                        border: none;
+                    }
+                    
+                    .button:hover {
+                        opacity: .6;
                     }
                     
                     .success {
