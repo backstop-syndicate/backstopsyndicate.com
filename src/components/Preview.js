@@ -14,11 +14,11 @@ export default function Preview({
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             <meta property="og:title" content={title} />
             <meta property="og:url" content="https://https://backstopsyndicate.com/" />
-            <meta property="og:image" content="/preview.jpg" />
+            <meta property="og:image" content="https://backstopsyndicate.com/preview.jpg" />
             <meta name="twitter:card" content={card} />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
-            <meta name="twitter:image" content="/preview.jpg" />
+            <meta name="twitter:image" content="https://backstopsyndicate.com/preview.jpg" />
         </Head>
     )
 }

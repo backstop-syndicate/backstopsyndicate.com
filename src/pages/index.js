@@ -11,7 +11,7 @@ export default function Index() {
             <form className={"form-container"}>
                 <div className={"deposit-container"}>
                     <label htmlFor="depositAmount">
-                        Deposit Amount:
+                        Deposit DAI:
                     </label>
                     <input
                         type="number"
