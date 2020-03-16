@@ -2,7 +2,52 @@ import React from "react";
 import Footer from "../components/Footer";
 import AppHeader from "../components/AppHeader";
 import Preview from "../components/Preview";
+import DEXAG from "dexag-sdk";
 import Link from "next/link";
+
+let timer;
+const checkPrice = async () => {
+    clearTimeout(timer);
+    const toAmount = document.getElementById("buyAmount").value;
+    if (toAmount) {
+        timer = setTimeout(async () => {
+            try {
+                const dexagResponse = await fetch(`https://api-v2.dex.ag/price?from=ETH&to=DAI&toAmount=${toAmount}&dex=ag&tradable=true`);
+                const price = await dexagResponse.json();
+                document.getElementById("costAmount").innerText = (Number(toAmount) * Number(price.price)).toFixed(2);
+            } catch (e) {
+                console.log("Error getting DEXAG price: ", e);
+            }
+        }, 500);
+    }
+}
+
+const buyDai = async (e) => {
+    e.preventDefault();
+    if (window.ethereum) {
+        const dexag = DEXAG.fromProvider(window.ethereum);
+        const toAmount = document.getElementById("buyAmount").value;
+        if (toAmount) {
+            try {
+                document.getElementById("buyButton").innerText = "Getting Trade...";
+                const dexagPriceResponse = await fetch(`https://api-v2.dex.ag/price?from=ETH&to=DAI&toAmount=${toAmount}&dex=ag&tradable=true`);
+                const price = await dexagPriceResponse.json();
+                const limitAmount = Number(toAmount) * Number(price.price) * 1.005;
+                const dexagResponse = await fetch(`https://api-v2.dex.ag/trade?from=ETH&to=DAI&toAmount=${toAmount}&limitAmount=${limitAmount}&dex=ag`);
+                const trade = await dexagResponse.json();
+                const valid = await dexag.validate(trade);
+                if (valid) {
+                    document.getElementById("buyButton").innerText = "Buying DAI...";
+                    await dexag.trade(trade);
+                }
+                document.getElementById("buyButton").innerText = "BUY THE DAI";
+            } catch (e) {
+                document.getElementById("buyButton").innerText = "BUY THE DAI";
+                console.log("Error buying DAI: ", e);
+            }
+        }
+    }
+}
 
 export default function Index() {
     return (
@@ -30,6 +75,39 @@ export default function Index() {
                         </a>
                     </span>
                 </div>
+                <br />
+                <div className={"buy-container"}>
+                    <span className={"hint"}>
+                        Need DAI? Buy it here. 
+                    </span>
+                    <div className={"buy-widget-container"}>
+                        <label htmlFor="buyAmount" className="buy-label">I want </label> 
+                        <input
+                            type="number"
+                            name="buyAmount"
+                            id="buyAmount"
+                            defaultValue={""}
+                            className="buyAmount"
+                            onChange={(e) => {checkPrice(e)}}
+                        />
+                        <span>
+                            DAI
+                        </span>
+                    </div>
+                    <div className={"cost-widget-container"}>
+                        <span className="buy-label">For </span> 
+                        <span className="buyAmount" id="costAmount"></span>
+                        <span>
+                            ETH
+                        </span>
+                    </div>
+
+                    <span className={"hint"}>Ok, let's do this</span>
+                    <button className={"button buy"} id="buyButton" onClick={(e) => {buyDai(e)}}>BUY THE DAI</button>
+                    <div className={"dexag"}>
+                        <span className={"hint"}>Powered by <a href="https://dex.ag" target="_blank">DEX.AG</a></span>
+                    </div>
+                </div>
                 <div className={"withdrawable-container"}>
                     <h3>
                         Withdrawal:
@@ -45,6 +123,15 @@ export default function Index() {
             </form>
             <style jsx>
                 {`
+                    label {
+                        display: block;
+                    }
+
+                    .buy-label {
+                        width: 40px;
+                        display: inline-block;
+                    }
+                    
                     input {
                         width: calc(100% - 20px);
                         background: #433838;
@@ -69,7 +156,16 @@ export default function Index() {
                     .hint, label {
                         line-height: 60px;
                     }
-
+                    
+                    .buyAmount {
+                        width: 75px;
+                        display: inline-block;
+                        text-align: right;
+                        margin: 20px 10px 0px 15px;
+                        padding-left: 20px;
+                        padding-right: 5px;
+                    }
+                    
                     .form-container {
                         margin: auto;
                         width: 450px;
@@ -77,6 +173,19 @@ export default function Index() {
                         padding-bottom: 100px;
                     }
 
+                    .buy-container {
+                        display: inline;
+                        width: 450px;
+                    }
+
+                    .buy-widget-container {
+                        margin-top: -30px;
+                    }
+
+                    .cost-widget-container {
+                        margin-top: -20px;
+                    }
+                    
                     .success-links {
                         display: flex;
                         flex-direction: row;
@@ -87,6 +196,10 @@ export default function Index() {
                         padding-top:60px;
                     }
 
+                    .dexag {
+                        float: right;
+                    }
+                    
                     .button {
                         width: 100%;
                         border-radius: 3px;
@@ -104,6 +217,10 @@ export default function Index() {
                         background: #19BC9B;
                     }
 
+                    .buy {
+                        background: #FCA060;
+                    }
+                    
                     .failure {
                         background: #DD1C1A;
                     }

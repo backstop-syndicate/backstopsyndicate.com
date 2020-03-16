@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Neablis/Dai-Backstop-syndicate#readme",
   "dependencies": {
     "@svgr/webpack": "^5.2.0",
+    "dexag-sdk": "^2.2.4",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^7.1.0",
     "imagemin-svgo": "^7.1.0",
