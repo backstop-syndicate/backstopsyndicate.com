@@ -10,9 +10,9 @@ export default function Index() {
             <Preview />
             <form className={"form-container"}>
                 <div className={"deposit-container"}>
-                    <label htmlFor="depositAmount">
+                    <h3>
                         Deposit DAI:
-                    </label>
+                    </h3>
                     <input
                         type="number"
                         name="depositAmount"
@@ -31,9 +31,9 @@ export default function Index() {
                     </span>
                 </div>
                 <div className={"withdrawable-container"}>
-                    <label htmlFor="withdawalButton">
+                    <h3>
                         Withdrawal:
-                    </label>
+                    </h3>
                     <span className={"hint"}>I am not as strong as I imagined. Sorry.</span>
                     <button
                         className={"button failure"}
@@ -45,10 +45,6 @@ export default function Index() {
             </form>
             <style jsx>
                 {`
-                    label {
-                        display: block;
-                    }
-                    
                     input {
                         width: calc(100% - 20px);
                         background: #433838;
@@ -59,38 +55,38 @@ export default function Index() {
                         font-size: 14px;
                         padding-left: 20px;
                     }
-                    
+
                     input::-webkit-outer-spin-button,
                     input::-webkit-inner-spin-button {
                         -webkit-appearance: none;
                         margin: 0;
                     }
-                    
+
                     input[type=number] {
                         -moz-appearance: textfield;
                     }
-                    
+
                     .hint, label {
                         line-height: 60px;
                     }
-                    
+
                     .form-container {
                         margin: auto;
                         width: 450px;
                         padding-top: 80px;
                         padding-bottom: 100px;
                     }
-                    
+
                     .success-links {
                         display: flex;
                         flex-direction: row;
                         justify-content: space-between;
                     }
-                    
+
                     .withdrawable-container {
                         padding-top:60px;
                     }
-                    
+
                     .button {
                         width: 100%;
                         border-radius: 3px;
@@ -99,30 +95,34 @@ export default function Index() {
                         cursor: pointer;
                         border: none;
                     }
-                    
+
                     .button:hover {
                         opacity: .6;
                     }
-                    
+
                     .success {
                         background: #19BC9B;
                     }
-                    
+
                     .failure {
                         background: #DD1C1A;
                     }
-                    
+
                     a,  span, label, button {
                         color: #FFFFFF;
                         font-style: normal;
                         font-weight: 500;
                         font-size: 14px;
                     }
-                    
+
                     a {
                       text-decoration: underline;
                     }
-                    
+
+                    h3 {
+                      line-height: 50px;
+                    }
+
                     .success-links {
                         line-height: 45px;
                     }
