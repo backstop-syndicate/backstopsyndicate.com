@@ -55,9 +55,9 @@ export default function Index() {
             <Preview />
             <form className={"form-container"}>
                 <div className={"deposit-container"}>
-                    <label htmlFor="depositAmount">
+                    <h3>
                         Deposit DAI:
-                    </label>
+                    </h3>
                     <input
                         type="number"
                         name="depositAmount"
@@ -109,9 +109,9 @@ export default function Index() {
                     </div>
                 </div>
                 <div className={"withdrawable-container"}>
-                    <label htmlFor="withdawalButton">
+                    <h3>
                         Withdrawal:
-                    </label>
+                    </h3>
                     <span className={"hint"}>I am not as strong as I imagined. Sorry.</span>
                     <button
                         className={"button failure"}
@@ -142,17 +142,17 @@ export default function Index() {
                         font-size: 14px;
                         padding-left: 20px;
                     }
-                    
+
                     input::-webkit-outer-spin-button,
                     input::-webkit-inner-spin-button {
                         -webkit-appearance: none;
                         margin: 0;
                     }
-                    
+
                     input[type=number] {
                         -moz-appearance: textfield;
                     }
-                    
+
                     .hint, label {
                         line-height: 60px;
                     }
@@ -191,7 +191,7 @@ export default function Index() {
                         flex-direction: row;
                         justify-content: space-between;
                     }
-                    
+
                     .withdrawable-container {
                         padding-top:60px;
                     }
@@ -208,11 +208,11 @@ export default function Index() {
                         cursor: pointer;
                         border: none;
                     }
-                    
+
                     .button:hover {
                         opacity: .6;
                     }
-                    
+
                     .success {
                         background: #19BC9B;
                     }
@@ -224,18 +224,22 @@ export default function Index() {
                     .failure {
                         background: #DD1C1A;
                     }
-                    
+
                     a,  span, label, button {
                         color: #FFFFFF;
                         font-style: normal;
                         font-weight: 500;
                         font-size: 14px;
                     }
-                    
+
                     a {
                       text-decoration: underline;
                     }
-                    
+
+                    h3 {
+                      line-height: 50px;
+                    }
+
                     .success-links {
                         line-height: 45px;
                     }
