@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import AppHeader from "../components/AppHeader";
 import Preview from "../components/Preview";
 import DEXAG from "dexag-sdk";
+import getDaiBalance from "../lib/daiBalance";
 import Link from "next/link";
 
 let timer;
