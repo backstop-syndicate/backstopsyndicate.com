@@ -79,10 +79,10 @@ export default function Index() {
                 <br />
                 <div className={"buy-container"}>
                     <span className={"hint"}>
-                        Need DAI? Buy it here. 
+                        Need DAI? Buy it here.
                     </span>
                     <div className={"buy-widget-container"}>
-                        <label htmlFor="buyAmount" className="buy-label">I want </label> 
+                        <div htmlFor="buyAmount" className="buy-label">I want </div>
                         <input
                             type="number"
                             name="buyAmount"
@@ -91,16 +91,21 @@ export default function Index() {
                             className="buyAmount"
                             onChange={(e) => {checkPrice(e)}}
                         />
-                        <span>
+                        <div className="buy-label">
                             DAI
-                        </span>
+                        </div>
                     </div>
                     <div className={"cost-widget-container"}>
-                        <span className="buy-label">For </span> 
-                        <span className="buyAmount" id="costAmount"></span>
-                        <span>
+                        <div className="buy-label">For </div>
+                        <div
+                            name="costAmount"
+                            id="costAmount"
+                            readOnly
+                            className="costAmount"
+                        />
+                        <div className="buy-label">
                             ETH
-                        </span>
+                        </div>
                     </div>
 
                     <span className={"hint"}>Ok, let's do this</span>
@@ -124,16 +129,17 @@ export default function Index() {
             </form>
             <style jsx>
                 {`
-                    label {
-                        display: block;
+
+                    input {
+                        background: #433838;
+                        border-radius: 3px;
+                        height: 32px;
+                        border: none;
+                        color: #ffffff;
+                        font-size: 14px;
                     }
 
-                    .buy-label {
-                        width: 40px;
-                        display: inline-block;
-                    }
-                    
-                    input {
+                    input#depositAmount {
                         width: calc(100% - 20px);
                         background: #433838;
                         border-radius: 3px;
@@ -157,16 +163,7 @@ export default function Index() {
                     .hint, label {
                         line-height: 60px;
                     }
-                    
-                    .buyAmount {
-                        width: 75px;
-                        display: inline-block;
-                        text-align: right;
-                        margin: 20px 10px 0px 15px;
-                        padding-left: 20px;
-                        padding-right: 5px;
-                    }
-                    
+
                     .form-container {
                         margin: auto;
                         width: 450px;
@@ -175,18 +172,43 @@ export default function Index() {
                     }
 
                     .buy-container {
-                        display: inline;
-                        width: 450px;
+
+                    }
+
+                    .buy-label {
+                        width: 60px;
+                        line-height: 34px;
+                    }
+
+                    .buy-widget-container, .cost-widget-container {
+                        display: flex;
+                        flex-direction: row;
                     }
 
                     .buy-widget-container {
-                        margin-top: -30px;
+                      margin-bottom: 10px;
                     }
 
-                    .cost-widget-container {
-                        margin-top: -20px;
+                    .buyAmount {
+
                     }
-                    
+
+                    #buyAmount, #costAmount {
+                      width: 102px;
+                      margin-right: 10px;
+                      padding-right: 10px;
+                      text-align: right;
+                      font-family: Futura;
+                      font-style: normal;
+                      font-weight: 500;
+                      font-size: 14px;
+                    }
+
+                    #costAmount {
+                      line-height: 32px;
+                    }
+
+
                     .success-links {
                         display: flex;
                         flex-direction: row;
@@ -200,7 +222,7 @@ export default function Index() {
                     .dexag {
                         float: right;
                     }
-                    
+
                     .button {
                         width: 100%;
                         border-radius: 3px;
@@ -221,7 +243,7 @@ export default function Index() {
                     .buy {
                         background: #FCA060;
                     }
-                    
+
                     .failure {
                         background: #DD1C1A;
                     }
