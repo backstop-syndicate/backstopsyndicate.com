@@ -10,7 +10,7 @@ import Deposit from '../components/Deposit'
 import Preview from "../components/Preview"
 import Withdraw from "../components/Withdraw/Withdraw"
 
-import { decAmount } from '../lib/util'
+import { decAmount, numberWithCommas } from '../lib/util'
 import withWeb3 from '../lib/Web3Container'
 import { AppContext } from '../context'
 
@@ -22,6 +22,7 @@ const Index = ({
     onEnable,
     syndicateContract,
     totalDaiBalance,
+    holders,
     updateTotalDeposited,
     updateUserBalances,
     web3,
@@ -42,6 +43,9 @@ const Index = ({
             web3,
         }}>
             <Preview />
+            <Container >
+                <h2 style={{textAlign: 'center', marginTop: 40, fontSize: 22, lineHeight: 1.3}}>Participate in the upcoming MKR auctions at a backstop price of 100 Dai per MKR</h2>
+            </Container>
             <Container>
                 <div style={{
                     border: '2px solid rgba(255,255,255,0.25)',
@@ -50,8 +54,11 @@ const Index = ({
                     padding: 24,
                     textAlign: 'center',
                 }}>
-                    <h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{decAmount(totalDaiBalance, 18, 2)}</h1>
+                    <h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{numberWithCommas(decAmount(totalDaiBalance, 18, 2))}</h1>
                     <h3 style={{ marginTop: 12 }}>Total Dai Deposited</h3>
+                    {/*<br />*/}
+                    {/*<h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{holders}</h1>*/}
+                    {/*<h3 style={{ marginTop: 12 }}>Total Participants</h3>*/}
                 </div>
             </Container>
             {!!web3 ? (

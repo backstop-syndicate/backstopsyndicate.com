@@ -26,31 +26,32 @@ const Deposit = () => {
   const [modal, setModal] = useState()
 
   const {
-    account,
-    daiBalance,
-    daiContract,
-    syndicateContract,
-    updateTotalDeposited,
-    updateUserBalances,
-  } = useContext(AppContext)
+      account,
+      daiBalance,
+      daiContract,
+      syndicateContract,
+      updateTotalDeposited,
+      updateUserBalances,
+  } = useContext(AppContext);
 
   const handleDepositClick = async (e) => {
-    e.preventDefault()
-    const depositAmount = bnAmount(inputValue, 18)
+    e.preventDefault();
+    const depositAmount = bnAmount(inputValue, 18);
+
     const allowance = new BigNumber(await daiContract.methods.allowance(
       account,
       syndicateContract.options.address
-    ).call())
+    ).call());
+
     if (depositAmount.gt(allowance)) {
       try {
         await handleNeedsApprove(depositAmount)
       } catch (e) {
-        console.log(e)
-        return setModal()
+        return setModal();
       }
     }
     handleDeposit(depositAmount)
-  }
+  };
 
   // Start approve Dai flow
   const handleNeedsApprove = (amount) => {
@@ -83,33 +84,37 @@ const Deposit = () => {
   }
 
   const handleDeposit = (amount) => {
-    setModal(<ConfirmTransactionModal text="Now check your wallet to confirm the deposit." />)
+    setModal(<ConfirmTransactionModal text="Now check your wallet to confirm the deposit." />);
 
     return syndicateContract.methods.enlist(amount.toFixed()).send({
       from: account,
       // gasPrice: bnAmount(5, 9).toFixed(),
     })
     .once('transactionHash', hash => {
-      setInputValue('')
-      console.log(hash)
+      setInputValue('');
+
       setModal(<TransactionConfirmingModal />)
     })
     .on('error', error => {
-      setModal(<ErrorModal error="Transaction failed." onDismiss={() => setModal()} />)
+
+      setModal(<ErrorModal error="Transaction failed." onDismiss={() => setModal()} />);
     })
     .then(receipt => {
-      const displayAmount = decAmount(amount, 18)
+
+      const displayAmount = decAmount(amount, 18);
+
       setModal(
         <TransactionSuccessModal
           onDismiss={() => setModal()}
           text={`Successfully deposited ${displayAmount} DAI. It may take a few moments for your balance to update.`}
         />
-      )
-      updateUserBalances()
-      updateTotalDeposited()
+      );
+
+      updateUserBalances();
+      updateTotalDeposited();
       setTimeout(() => {
-        updateUserBalances()
-        updateTotalDeposited()
+        updateUserBalances();
+        updateTotalDeposited();
       }, 10000)
     })
     .catch(e => {
@@ -161,7 +166,7 @@ const Deposit = () => {
             GO!
           </Button>
           <span className={"success-links"}>
-            <Link href={"/faq/"}>
+            <Link href={"/faq"}>
               <a>See participation rewards</a>
             </Link>
             <a href={"https://backstopsyndicate.eth/"}>

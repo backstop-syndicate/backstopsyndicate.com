@@ -8,11 +8,14 @@ import getContract from './getContract'
 
 import Modal from '../components/Modal'
 import { ErrorModal } from '../components/modals'
+import { getHolders } from "./util";
 
 const Web3Container = (WrappedComponent) => {
     return (props) => {
         const [web3, setWeb3] = useState();
         const [account, setAccount] = useState();
+        const [holders, setHolders] = useState();
+
         const [networkId, setNetworkId] = useState(1);
         const [syndicateContract, setSyndicateContract] = useState();
 
@@ -50,7 +53,7 @@ const Web3Container = (WrappedComponent) => {
                 const web3 = await getWeb3();
                 const accounts = await web3.eth.getAccounts();
                 const networkId = await web3.eth.net.getId();
-                setNetworkId(networkId)
+                setNetworkId(networkId);
                 
                 const contractAddress = await web3.eth.ens.getAddress('backstopsyndicate.eth');
                 const contractDefinition = {
@@ -64,8 +67,11 @@ const Web3Container = (WrappedComponent) => {
 
                 const contract = await getContract(web3, contractDefinition);
 
-                setWeb3(web3)
-                setAccount(accounts[0])
+                // let holders = await getHolders();
+
+                setHolders(holders);
+                setWeb3(web3);
+                setAccount(accounts[0]);
                 setDaiContract(new web3.eth.Contract(erc20abi, "0x6b175474e89094c44da98b954eedeac495271d0f"));
                 setSyndicateContract(contract)
             }
@@ -97,6 +103,7 @@ const Web3Container = (WrappedComponent) => {
                     onEnable={handleEnable}
                     syndicateContract={syndicateContract}
                     totalDaiBalance={totalDaiBalance}
+                    holders={holders}
                     updateTotalDeposited={updateTotalDeposited}
                     updateUserBalances={updateUserBalances}
                     web3={web3}

@@ -11,4 +11,4 @@ export const AppContext = React.createContext({
   updateTotalDeposited: () => {},
   updateUserBalances: () => {},
   web3: null
-})
+});
