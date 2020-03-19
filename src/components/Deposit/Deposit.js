@@ -16,6 +16,7 @@ import { AppContext } from '../../context'
 import {
   ConfirmApproveModal,
   ConfirmTransactionModal,
+  ErrorModal,
   TransactionConfirmingModal,
   TransactionSuccessModal,
 } from '../modals'
@@ -93,7 +94,7 @@ const Deposit = () => {
       setModal(<TransactionConfirmingModal />)
     })
     .on('error', error => {
-      setModal(error.toString())
+      setModal(<ErrorModal error={error.toString()} onDismiss={() => setModal()} />)
     })
     .then(receipt => {
       const displayAmount = decAmount(amount, 18)

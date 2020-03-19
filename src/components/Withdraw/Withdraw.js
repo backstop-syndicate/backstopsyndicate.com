@@ -12,6 +12,7 @@ import Modal from '../Modal'
 
 import {
   ConfirmTransactionModal,
+  ErrorModal,
   TransactionConfirmingModal,
   TransactionSuccessModal,
 } from '../modals'
@@ -41,7 +42,7 @@ const Withdraw = () => {
       })
       .on('error', error => {
         console.log(error)
-        setModal(error.toString())
+        setModal(<ErrorModal error={error.toString()} onDismiss={() => setModal()} />)
       })
       .then(receipt => {
         const displayAmount = decAmount(withdrawAmount, 18)

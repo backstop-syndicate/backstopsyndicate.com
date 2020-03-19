@@ -6,6 +6,7 @@ import WalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import PublishIcon from '@material-ui/icons/Publish'
 import DoneIcon from '@material-ui/icons/Done'
+import WarningIcon from '@material-ui/icons/Warning'
 
 import Button from '../Button'
 
@@ -50,6 +51,25 @@ const ModalContent = ({ children }) => (
   <div style={{ marginTop: 24, marginBottom: 24 }}>
     {children}
   </div>
+)
+
+export const ErrorModal = ({ error, onDismiss }) => (
+  <>
+    <ModalIcon icon={<WarningIcon />} />
+    <ModalContent>
+      <span>Error</span>
+    </ModalContent>
+    <ModalActions>
+      <div style={{ display: 'flex'}}>
+        <Button
+          buttonType="light"
+          onClick={onDismiss}
+        >
+          OK
+        </Button>
+      </div>
+    </ModalActions>
+  </>
 )
 
 export const ConfirmApproveModal = ({ amount, onCancel, onConfirm }) => (
