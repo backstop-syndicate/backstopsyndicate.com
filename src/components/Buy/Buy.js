@@ -42,6 +42,7 @@ const buyDai = async (e) => {
                     await dexag.trade(trade);
                 }
                 document.getElementById("buyButton").innerText = "BUY THE DAI";
+                window.location.reload()
             } catch (e) {
                 document.getElementById("buyButton").innerText = "BUY THE DAI";
                 console.log("Error buying DAI: ", e);
@@ -51,6 +52,9 @@ const buyDai = async (e) => {
 }
 
 const Buy = () => {
+
+
+    
   return (
     <Container>
       <Hint>Need DAI? Buy it here.</Hint>
