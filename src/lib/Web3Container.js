@@ -87,7 +87,7 @@ const Web3Container = (WrappedComponent) => {
                 onEnable={handleEnable}
                 syndicateContract={syndicateContract}
                 totalDaiBalance={totalDaiBalance}
-                updateTotalDeposited={updateUserBalances}
+                updateTotalDeposited={updateTotalDeposited}
                 updateUserBalances={updateUserBalances}
                 web3={web3}
             />
