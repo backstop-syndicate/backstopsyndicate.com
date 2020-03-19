@@ -87,6 +87,7 @@ export const TransactionConfirmingModal = () => (
     <ModalIcon icon={<PublishIcon />} />
     <ModalContent>
       <span>Please wait while your transaction confirms.</span>
+      <div style={{ height: 24 }} />
       <ColorLinearProgress />
     </ModalContent>
   </>

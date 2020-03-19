@@ -9,4 +9,7 @@ module.exports = withOptimizedImages({
     generateBuildId: async () => {
         return 'my-build-id'
     },
+    env: {
+        NODEURL: 'https://mainnet.infura.io/v3/db0babc871d74cf79895319a8704666c'
+    },
 });

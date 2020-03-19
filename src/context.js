@@ -7,6 +7,8 @@ export const AppContext = React.createContext({
   daiContract: null,
   enlistedBalance: new BigNumber(0),
   syndicateContract: null,
-  updateBalances: () => {},
+  updateTotalBalance: new BigNumber(0),
+  updateTotalBalance: () => {},
+  updateUserBalances: () => {},
   web3: null
 })

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext,  useState } from 'react'
 
 import { BigNumber } from 'bignumber.js'
 import Link from "next/link"
@@ -29,7 +29,7 @@ const Deposit = () => {
     daiBalance,
     daiContract,
     syndicateContract,
-    updateBalances,
+    updateUserBalances,
   } = useContext(AppContext)
 
   const handleDepositClick = async (e) => {
@@ -41,7 +41,7 @@ const Deposit = () => {
     ).call())
     if (depositAmount.gt(allowance)) {
       try {
-        await handleApprove(depositAmount)
+        await handleNeedsApprove(depositAmount)
       } catch (e) {
         console.log(e)
         return setModal()
@@ -51,7 +51,7 @@ const Deposit = () => {
   }
 
   // Start approve Dai flow
-  const handleApprove = (amount) => {
+  const handleNeedsApprove = (amount) => {
     return new Promise((resolve, reject) => {
       const displayAmount = decAmount(amount, 18)
       setModal(
@@ -82,9 +82,10 @@ const Deposit = () => {
 
   const handleDeposit = (amount) => {
     setModal(<ConfirmTransactionModal />)
+
     return syndicateContract.methods.enlist(amount.toFixed()).send({
       from: account,
-      gasPrice: bnAmount(5, 9).toFixed(),
+      // gasPrice: bnAmount(5, 9).toFixed(),
     })
     .once('transactionHash', hash => {
       console.log(hash)
@@ -101,7 +102,7 @@ const Deposit = () => {
           text={`Successfully deposited ${displayAmount} DAI.`}
         />
       )
-      updateBalances()
+      updateUserBalances()
     })
     .catch(e => {
       console.log(e)

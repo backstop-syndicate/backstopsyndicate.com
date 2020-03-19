@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { BigNumber } from 'bignumber.js'
+import React from "react"
 
 import Button from "../components/Button"
 import Buy from '../components/Buy'
@@ -8,32 +7,19 @@ import Preview from "../components/Preview"
 import Withdraw from "../components/Withdraw/Withdraw"
 
 import withWeb3 from '../lib/Web3Container'
-import erc20abi from '../lib/abi/erc20.abi.json'
-
 import { AppContext } from '../context'
 
 const Index = ({
     account,
+    daiBalance,
+    daiContract,
+    enlistedBalance,
     onEnable,
     syndicateContract,
+    updateTotalBalance,
+    updateUserBalances,
     web3,
 }) => {
-    const daiContract = web3 ? new web3.eth.Contract(erc20abi, "0x6b175474e89094c44da98b954eedeac495271d0f") : null
-    const [daiBalance, setDaiBalance] = useState(new BigNumber(0))
-    const [enlistedBalance, setEnlistedBalance] = useState(new BigNumber(0))
-
-    const updateBalances = async () => {
-        const daiBalance = await daiContract.methods.balanceOf(account).call()
-        setDaiBalance(new BigNumber(daiBalance))
-        const enlistedBalance = new BigNumber(await syndicateContract.methods.balanceOf(account).call())
-        setEnlistedBalance(enlistedBalance)
-    }
-
-    useEffect(() => {
-        if (account && syndicateContract && web3) {
-            updateBalances()
-        }
-    }, [account, syndicateContract, web3])
 
     const needsMetamask = process.browser ? !window.ethereum : false
     const disabled = !account
@@ -45,7 +31,8 @@ const Index = ({
             daiContract,
             enlistedBalance,
             syndicateContract,
-            updateBalances,
+            updateTotalBalance,
+            updateUserBalances,
             web3,
         }}>
             <Preview />
@@ -54,11 +41,7 @@ const Index = ({
                 position: 'relative',
             }}>
                 {!!disabled && !needsMetamask && (
-                    <div style={{
-                        alignItems: 'center',
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}>
+                    <ActionWrapper>
                         <div>
                         <Button
                             buttonType="success"
@@ -67,7 +50,7 @@ const Index = ({
                             Unlock To Continue
                         </Button>
                         </div>
-                    </div>
+                    </ActionWrapper>
                 )}
                 {!needsMetamask ? (
                     <div style={{
@@ -79,11 +62,7 @@ const Index = ({
                         <Withdraw />
                     </div>
                 ) : (
-                    <div style={{
-                        alignItems: 'center',
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}>
+                    <ActionWrapper>
                         <div>
                             <Button
                                 buttonType="success"
@@ -92,7 +71,7 @@ const Index = ({
                                 Get MetaMask to participate!
                             </Button>
                         </div>
-                    </div>
+                    </ActionWrapper>
                 )}
             </div>
         </AppContext.Provider>
@@ -100,3 +79,13 @@ const Index = ({
 }
 
 export default withWeb3(Index)
+
+const ActionWrapper = ({children }) => (
+    <div style={{
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+    }}>
+        {children}
+    </div>
+)

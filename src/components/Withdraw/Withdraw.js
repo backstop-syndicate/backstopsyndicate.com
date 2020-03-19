@@ -24,7 +24,7 @@ const Withdraw = () => {
     account,
     enlistedBalance,
     syndicateContract,
-    updateBalances,
+    updateUserBalances,
   } = useContext(AppContext)
 
   const handleWithdrawClick = async (e) => {
@@ -33,7 +33,7 @@ const Withdraw = () => {
     const withdrawAmount = bnAmount(inputValue, 18)
     syndicateContract.methods.defect(withdrawAmount.toFixed()).send({
       from: account,
-      gasPrice: bnAmount(5, 9).toFixed(),
+      // gasPrice: bnAmount(5, 9).toFixed(),
     })
       .once('transactionHash', hash => {
         setModal(<TransactionConfirmingModal />)
@@ -50,7 +50,7 @@ const Withdraw = () => {
             text={`Successfully deposited ${displayAmount} DAI.`}
           />
         )
-        updateBalances()
+        updateUserBalances()
       })
   }
 
