@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BigNumber } from 'bignumber.js'
+
+import Deposit from '../components/Deposit'
+import Container from '../components/Container'
 import Footer from "../components/Footer";
 import AppHeader from "../components/AppHeader";
 import Preview from "../components/Preview";
 import DEXAG from "dexag-sdk";
 import Link from "next/link";
+import withWeb3 from '../lib/Web3Container'
+import erc20abi from '../lib/abi/erc20.abi.json'
+
+import { AppContext } from '../context'
+import Withdraw from "../components/Withdraw/Withdraw";
 
 let timer;
 const checkPrice = async () => {
@@ -49,83 +58,77 @@ const buyDai = async (e) => {
     }
 }
 
-export default function Index() {
+const Index = ({ account, contract: syndicateContract, web3}) => {
+    const daiContract = web3 ? new web3.eth.Contract(erc20abi, "0x6b175474e89094c44da98b954eedeac495271d0f") : null
+    const [daiBalance, setDaiBalance] = useState(new BigNumber(0))
+    const [enlistedBalance, setEnlistedBalance] = useState(new BigNumber(0))
+
+    const updateBalances = async () => {
+        const daiBalance = await daiContract.methods.balanceOf(account).call()
+        setDaiBalance(new BigNumber(daiBalance))
+        const enlistedBalance = new BigNumber(await syndicateContract.methods.balanceOf(account).call())
+        setEnlistedBalance(enlistedBalance)
+    }
+
+    useEffect(() => {
+        if (account && syndicateContract && web3) {
+            updateBalances()
+        }
+    }, [account, syndicateContract, web3])
+
     return (
-        <div>
+        <AppContext.Provider value={{
+            account,
+            daiBalance,
+            daiContract,
+            enlistedBalance,
+            syndicateContract,
+            updateBalances,
+            web3,
+        }}>
             <Preview />
-            <form className={"form-container"}>
-                <div className={"deposit-container"}>
-                    <h3>
-                        Deposit DAI:
-                    </h3>
-                    <input
-                        type="number"
-                        name="depositAmount"
-                        id="depositAmount"
-                        defaultValue={""}
-                    />
-                    <span className={"hint"}>I am the hero Defi needs. I am ready to to contribute</span>
-                    <button className={"button success"}>GO!</button>
-                    <span className={"success-links"}>
-                        <Link href={"/faq/"}>
-                            <a>See participation rewards</a>
-                        </Link>
-                        <a href={"https://backstopsyndicate.eth/"}>
-                            backstopsyndicate.eth
-                        </a>
-                    </span>
+            <div style={{ margin: '64px 0'}}>
+            <Deposit />
+            <Container>
+                <span className={"hint"}>
+                Need DAI? Buy it here.
+                </span>
+                <div className={"buy-widget-container"}>
+                <div htmlFor="buyAmount" className="buy-label">I want </div>
+                <input
+                type="number"
+                name="buyAmount"
+                id="buyAmount"
+                defaultValue={""}
+                className="buyAmount"
+                onChange={(e) => {checkPrice(e)}}
+                />
+                <div className="buy-label">
+                DAI
                 </div>
-                <br />
-                <div className={"buy-container"}>
-                    <span className={"hint"}>
-                        Need DAI? Buy it here.
-                    </span>
-                    <div className={"buy-widget-container"}>
-                        <div htmlFor="buyAmount" className="buy-label">I want </div>
-                        <input
-                            type="number"
-                            name="buyAmount"
-                            id="buyAmount"
-                            defaultValue={""}
-                            className="buyAmount"
-                            onChange={(e) => {checkPrice(e)}}
-                        />
-                        <div className="buy-label">
-                            DAI
-                        </div>
-                    </div>
-                    <div className={"cost-widget-container"}>
-                        <div className="buy-label">For </div>
-                        <div
-                            name="costAmount"
-                            id="costAmount"
-                            readOnly
-                            className="costAmount"
-                        />
-                        <div className="buy-label">
-                            ETH
-                        </div>
-                    </div>
-
-                    <span className={"hint"}>Ok, let's do this</span>
-                    <button className={"button buy"} id="buyButton" onClick={(e) => {buyDai(e)}}>BUY THE DAI</button>
-                    <div className={"dexag"}>
-                        <span className={"hint"}>Powered by <a href="https://dex.ag" target="_blank">DEX.AG</a></span>
-                    </div>
                 </div>
-                <div className={"withdrawable-container"}>
-                    <h3>
-                        Withdrawal:
-                    </h3>
-                    <span className={"hint"}>I am not as strong as I imagined. Sorry.</span>
-                    <button
-                        className={"button failure"}
-                        name="withdawalButton"
-                        id="withdawalButton"
-                    >GET ME OUT.</button>
+                <div className={"cost-widget-container"}>
+                <div className="buy-label">For </div>
+                <div
+                name="costAmount"
+                id="costAmount"
+                readOnly
+                className="costAmount"
+                />
+                <div className="buy-label">
+                ETH
+                </div>
                 </div>
 
-            </form>
+                <span className={"hint"}>Ok, let's do this</span>
+                <button className={"button buy"} id="buyButton" onClick={(e) => {buyDai(e)}}>BUY THE DAI</button>
+                <div className={"dexag"}>
+                <span className={"hint"}>Powered by <a href="https://dex.ag" target="_blank">DEX.AG</a></span>
+                </div>
+            </Container>
+            <Withdraw />
+            </div>
+
             <style jsx>
                 {`
 
@@ -166,8 +169,6 @@ export default function Index() {
                     .form-container {
                         margin: auto;
                         width: 450px;
-                        padding-top: 80px;
-                        padding-bottom: 100px;
                     }
 
                     .buy-container {
@@ -219,7 +220,7 @@ export default function Index() {
                     }
 
                     .dexag {
-                        float: right;
+                        text-align: right;
                     }
 
                     .button {
@@ -267,6 +268,8 @@ export default function Index() {
                     }
                 `}
             </style>
-        </div>
+        </AppContext.Provider>
     );
 }
+
+export default withWeb3(Index)
