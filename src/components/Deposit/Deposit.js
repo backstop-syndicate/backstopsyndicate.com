@@ -69,7 +69,7 @@ const Deposit = () => {
     setModal(<ConfirmTransactionModal />)
     return daiContract.methods.approve(syndicateContract.options.address, amount.toFixed()).send({
       from: account,
-      gasPrice: bnAmount(5, 9).toFixed(),
+      // gasPrice: bnAmount(5, 9).toFixed(),
     })
     .once('transactionHash', hash => {
       setModal(<TransactionConfirmingModal />)
