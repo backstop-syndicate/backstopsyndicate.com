@@ -37,12 +37,14 @@ a:hover {
 }
 
 .logo-header {
+    align-items: center;
     display: flex;
     margin: auto;
     position: relative;
-    height: 104px;
-    padding-top: 51px;
-    width: 541px;
+    padding: 51px 24px 0;
+    width: 100%;
+    max-width: 512px;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -59,7 +61,7 @@ a:hover {
     font-style: normal;
     font-weight: normal;
     font-size: 50px;
-    line-height: 62px;
+    margin-bottom: 8px;
 }
 
 .logo-subtitle {
@@ -118,4 +120,10 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+@media (max-width: 512px) {
+    .logo-title {
+        font-size: 32px;
+    }
 }

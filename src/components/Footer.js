@@ -8,15 +8,11 @@ export default function Footer() {
                     <a>FAQ</a>
                 </Link>
                 <span>|</span>
-                <Link href="/reward">
-                    <a>REWARD DETAILS</a>
-                </Link>
-                <span>|</span>
-                <Link href="/etherscan">
+                <Link href="https://etherscan.io/address/backstopsyndicate.eth">
                     <a>ETHERSCAN</a>
                 </Link>
                 <span>|</span>
-                <a href="https://github.com/backstop-syndicate" title="Github Page">GITHUB |</a>
+                <a href="https://github.com/backstop-syndicate" title="Github Page">GITHUB</a>
                 <span>|</span>
                 <a href="https://t.me/backstopsyndicate">TELEGRAM</a>
             </div>
@@ -24,7 +20,11 @@ export default function Footer() {
             <style jsx>{`
                 .footer-container {
                     margin: auto;
-                    width: 450px;
+                    max-width: 512px;
+                    width: 100%;
+                    padding: 24px;
+                    box-sizing: border-box;
+                    text-align: center;
                 }
                 
                 .footer-container a,  .footer-container span {
