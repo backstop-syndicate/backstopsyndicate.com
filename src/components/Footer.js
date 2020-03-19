@@ -24,6 +24,7 @@ export default function Footer() {
                     width: 100%;
                     padding: 24px;
                     box-sizing: border-box;
+                    text-align: center;
                 }
                 
                 .footer-container a,  .footer-container span {
