@@ -49,7 +49,7 @@ const Withdraw = () => {
         setModal(
           <TransactionSuccessModal
             onDismiss={() => setModal()}
-            text={`Successfully deposited ${displayAmount} DAI.`}
+            text={`Successfully withdrew ${displayAmount} DAI.`}
           />
         )
         updateUserBalances()
