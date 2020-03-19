@@ -66,7 +66,7 @@ const Deposit = () => {
     })
   }
   const onApprove = (amount, resolve, reject) => {
-    setModal(<ConfirmTransactionModal />)
+    setModal(<ConfirmTransactionModal text="Check your wallet to confirm the approval." />)
     return daiContract.methods.approve(syndicateContract.options.address, amount.toFixed()).send({
       from: account,
       // gasPrice: bnAmount(5, 9).toFixed(),
@@ -83,7 +83,7 @@ const Deposit = () => {
   }
 
   const handleDeposit = (amount) => {
-    setModal(<ConfirmTransactionModal />)
+    setModal(<ConfirmTransactionModal text="Now check your wallet to confirm the deposit." />)
 
     return syndicateContract.methods.enlist(amount.toFixed()).send({
       from: account,

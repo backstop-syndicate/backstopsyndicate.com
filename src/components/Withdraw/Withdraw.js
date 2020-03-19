@@ -31,7 +31,7 @@ const Withdraw = () => {
 
   const handleWithdrawClick = async (e) => {
     e.preventDefault()
-    setModal(<ConfirmTransactionModal />)
+    setModal(<ConfirmTransactionModal text="Check your wallet to confirm the withdrawal" />)
     const withdrawAmount = bnAmount(inputValue, 18)
     syndicateContract.methods.defect(withdrawAmount.toFixed()).send({
       from: account,

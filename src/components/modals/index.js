@@ -4,7 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import { withStyles } from '@material-ui/core/styles'
 import WalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
-import PublishIcon from '@material-ui/icons/Publish'
+import SyncIcon from '@material-ui/icons/SyncAlt'
 import DoneIcon from '@material-ui/icons/Done'
 import WarningIcon from '@material-ui/icons/Warning'
 
@@ -93,18 +93,18 @@ export const ConfirmApproveModal = ({ amount, onCancel, onConfirm }) => (
   </>
 )
 
-export const ConfirmTransactionModal = () => (
+export const ConfirmTransactionModal = ({ text }) => (
   <>
     <ModalIcon icon={<WalletIcon />} />
     <ModalContent>
-      <span>Check your wallet to confirm this transaction.</span>
+      <span>{text}</span>
     </ModalContent>
   </>
 )
 
 export const TransactionConfirmingModal = () => (
   <>
-    <ModalIcon icon={<PublishIcon />} />
+    <ModalIcon icon={<SyncIcon />} />
     <ModalContent>
       <span>Please wait while your transaction confirms.</span>
       <div style={{ height: 24 }} />
