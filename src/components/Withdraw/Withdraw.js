@@ -31,6 +31,7 @@ const Withdraw = () => {
     e.preventDefault()
     setModal(<ConfirmTransactionModal />)
     const withdrawAmount = bnAmount(inputValue, 18)
+    console.log(withdrawAmount.toFixed())
     syndicateContract.methods.defect(withdrawAmount).send({
       from: account,
       gasPrice: bnAmount(5, 9).toFixed(),

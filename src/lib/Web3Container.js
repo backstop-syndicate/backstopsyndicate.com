@@ -24,7 +24,7 @@ const Web3Container = (WrappedComponent) => {
                 const web3 = await getWeb3()
                 const accounts = await web3.eth.getAccounts()
                 const networkId = await web3.eth.net.getId()
-                const contractAddress = '0x00000000357646e36fe575885bb3e1a0772e64cc' // await web3.eth.ens.getAddress('backstopsyndicate.eth')
+                const contractAddress = await web3.eth.ens.getAddress('backstopsyndicate.eth')
                 const contractDefinition = {
                     abi,
                     networks: {
