@@ -8,11 +8,7 @@ export default function Footer() {
                     <a>FAQ</a>
                 </Link>
                 <span>|</span>
-                <Link href="/reward">
-                    <a>REWARD DETAILS</a>
-                </Link>
-                <span>|</span>
-                <Link href="/etherscan">
+                <Link href="https://etherscan.io/address/backstopsyndicate.eth">
                     <a>ETHERSCAN</a>
                 </Link>
                 <span>|</span>
