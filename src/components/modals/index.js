@@ -57,7 +57,7 @@ export const ErrorModal = ({ error, onDismiss }) => (
   <>
     <ModalIcon icon={<WarningIcon />} />
     <ModalContent>
-      <span>Error</span>
+      <span>{error}</span>
     </ModalContent>
     <ModalActions>
       <div style={{ display: 'flex'}}>

@@ -95,7 +95,7 @@ const Deposit = () => {
       setModal(<TransactionConfirmingModal />)
     })
     .on('error', error => {
-      setModal(<ErrorModal error={error.toString()} onDismiss={() => setModal()} />)
+      setModal(<ErrorModal error="Transaction failed." onDismiss={() => setModal()} />)
     })
     .then(receipt => {
       const displayAmount = decAmount(amount, 18)
