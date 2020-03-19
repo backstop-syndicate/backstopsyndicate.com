@@ -125,7 +125,8 @@ const Buy = () => {
 
                     .form-container {
                         margin: auto;
-                        width: 450px;
+                        max-width: 512px;
+                        width: 100%;
                     }
 
                     .buy-container {

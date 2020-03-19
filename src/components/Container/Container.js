@@ -9,8 +9,11 @@ const Container = ({ children }) => {
       <style jsx>
       {`
         .container {
+            box-sizing: border-box;
             margin: 24px auto;
-            width: 450px;
+            max-width: 512px;
+            width: 100%;
+            padding: 0 24px;
             position: relative;
         }
 

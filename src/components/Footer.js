@@ -16,7 +16,7 @@ export default function Footer() {
                     <a>ETHERSCAN</a>
                 </Link>
                 <span>|</span>
-                <a href="https://github.com/backstop-syndicate" title="Github Page">GITHUB |</a>
+                <a href="https://github.com/backstop-syndicate" title="Github Page">GITHUB</a>
                 <span>|</span>
                 <a href="https://t.me/backstopsyndicate">TELEGRAM</a>
             </div>
@@ -24,8 +24,10 @@ export default function Footer() {
             <style jsx>{`
                 .footer-container {
                     margin: auto;
-                    width: 450px;
+                    max-width: 512px;
+                    width: 100%;
                     padding: 24px;
+                    box-sizing: border-box;
                 }
                 
                 .footer-container a,  .footer-container span {
