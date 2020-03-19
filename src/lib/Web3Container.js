@@ -6,16 +6,22 @@ import sydnicateAbi from './abi/backstopsyndicate.eth.abi.json'
 import getWeb3 from './getWeb3'
 import getContract from './getContract'
 
+import Modal from '../components/Modal'
+import { ErrorModal } from '../components/modals'
+
 const Web3Container = (WrappedComponent) => {
     return (props) => {
         const [web3, setWeb3] = useState()
         const [account, setAccount] = useState()
+        const [networkId, setNetworkId] = useState(1)
         const [syndicateContract, setSyndicateContract] = useState()
 
         const [daiBalance, setDaiBalance] = useState(new BigNumber(0))
         const [daiContract, setDaiContract] = useState()
         const [enlistedBalance, setEnlistedBalance] = useState(new BigNumber(0))
         const [totalDaiBalance, setTotalDaiBalance] = useState(new BigNumber(0))
+
+        const [modal, setModal] = useState()
 
         const handleEnable = async () => {
             try {
@@ -44,6 +50,8 @@ const Web3Container = (WrappedComponent) => {
                 const web3 = await getWeb3()
                 const accounts = await web3.eth.getAccounts()
                 const networkId = await web3.eth.net.getId()
+                setNetworkId(networkId)
+                
                 const contractAddress = await web3.eth.ens.getAddress('backstopsyndicate.eth')
                 const contractDefinition = {
                     abi: sydnicateAbi,
@@ -78,19 +86,26 @@ const Web3Container = (WrappedComponent) => {
         }, [syndicateContract])
 
         return (
-            <WrappedComponent
-                {...props}
-                account={account}
-                daiBalance={daiBalance}
-                daiContract={daiContract}
-                enlistedBalance={enlistedBalance}
-                onEnable={handleEnable}
-                syndicateContract={syndicateContract}
-                totalDaiBalance={totalDaiBalance}
-                updateTotalDeposited={updateTotalDeposited}
-                updateUserBalances={updateUserBalances}
-                web3={web3}
-            />
+            <>
+                <WrappedComponent
+                    {...props}
+                    account={account}
+                    daiBalance={daiBalance}
+                    daiContract={daiContract}
+                    enlistedBalance={enlistedBalance}
+                    onEnable={handleEnable}
+                    syndicateContract={syndicateContract}
+                    totalDaiBalance={totalDaiBalance}
+                    updateTotalDeposited={updateTotalDeposited}
+                    updateUserBalances={updateUserBalances}
+                    web3={web3}
+                />
+                {networkId !== 1 && (
+                    <Modal>
+                        <ErrorModal error="Wrong Network!" />
+                    </Modal>
+                )}
+            </>
         )
     }
 }
