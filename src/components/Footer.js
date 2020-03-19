@@ -9,7 +9,7 @@ export default function Footer() {
                 </Link>
                 <span>|</span>
                 <a href="https://etherscan.io/address/backstopsyndicate.eth">
-                    <a>ETHERSCAN</a>
+                    ETHERSCAN
                 </a>
                 <span>|</span>
                 <a href="https://github.com/backstop-syndicate" title="Github Page">GITHUB</a>

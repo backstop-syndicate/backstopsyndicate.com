@@ -11,48 +11,48 @@ import { ErrorModal } from '../components/modals'
 
 const Web3Container = (WrappedComponent) => {
     return (props) => {
-        const [web3, setWeb3] = useState()
-        const [account, setAccount] = useState()
-        const [networkId, setNetworkId] = useState(1)
-        const [syndicateContract, setSyndicateContract] = useState()
+        const [web3, setWeb3] = useState();
+        const [account, setAccount] = useState();
+        const [networkId, setNetworkId] = useState(1);
+        const [syndicateContract, setSyndicateContract] = useState();
 
-        const [daiBalance, setDaiBalance] = useState(new BigNumber(0))
-        const [daiContract, setDaiContract] = useState()
-        const [enlistedBalance, setEnlistedBalance] = useState(new BigNumber(0))
-        const [totalDaiBalance, setTotalDaiBalance] = useState(new BigNumber(0))
+        const [daiBalance, setDaiBalance] = useState(new BigNumber(0));
+        const [daiContract, setDaiContract] = useState();
+        const [enlistedBalance, setEnlistedBalance] = useState(new BigNumber(0));
+        const [totalDaiBalance, setTotalDaiBalance] = useState(new BigNumber(0));
 
-        const [modal, setModal] = useState()
+        const [modal, setModal] = useState();
 
         const handleEnable = async () => {
             try {
-                const accounts = await window.ethereum.enable()
+                const accounts = await window.ethereum.enable();
                 setAccount(accounts[0])
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         const updateUserBalances = async () => {
-            const daiBalance = await daiContract.methods.balanceOf(account).call()
+            const daiBalance = await daiContract.methods.balanceOf(account).call();
             setDaiBalance(new BigNumber(daiBalance))
-            const enlistedBalance = new BigNumber(await syndicateContract.methods.balanceOf(account).call())
-            setEnlistedBalance(enlistedBalance)
-        }
+            const enlistedBalance = new BigNumber(await syndicateContract.methods.balanceOf(account).call());
+            setEnlistedBalance(enlistedBalance);
+        };
 
         const updateTotalDeposited = async () => {
-            const contractBalance = new BigNumber(await syndicateContract.methods.getDaiBalance().call())
-            setTotalDaiBalance(contractBalance)
-        }
+            const contractBalance = new BigNumber(await syndicateContract.methods.getDaiBalance().call());
+            setTotalDaiBalance(contractBalance);
+        };
 
         // init web3, account, and syndicate contract
         useEffect(() => {
             async function init() {
-                const web3 = await getWeb3()
-                const accounts = await web3.eth.getAccounts()
-                const networkId = await web3.eth.net.getId()
+                const web3 = await getWeb3();
+                const accounts = await web3.eth.getAccounts();
+                const networkId = await web3.eth.net.getId();
                 setNetworkId(networkId)
                 
-                const contractAddress = await web3.eth.ens.getAddress('backstopsyndicate.eth')
+                const contractAddress = await web3.eth.ens.getAddress('backstopsyndicate.eth');
                 const contractDefinition = {
                     abi: sydnicateAbi,
                     networks: {
@@ -60,30 +60,31 @@ const Web3Container = (WrappedComponent) => {
                             address: contractAddress
                         }
                     }
-                }
-                const contract = await getContract(web3, contractDefinition)
+                };
+
+                const contract = await getContract(web3, contractDefinition);
 
                 setWeb3(web3)
                 setAccount(accounts[0])
-                setDaiContract(new web3.eth.Contract(erc20abi, "0x6b175474e89094c44da98b954eedeac495271d0f"))
+                setDaiContract(new web3.eth.Contract(erc20abi, "0x6b175474e89094c44da98b954eedeac495271d0f"));
                 setSyndicateContract(contract)
             }
-            init()
-        }, [])
+            init();
+        }, []);
 
         // init user balances
         useEffect(() => {
             if (account && daiContract && syndicateContract) {
                 updateUserBalances()
             }
-        }, [account, daiContract, syndicateContract])
+        }, [account, daiContract, syndicateContract]);
 
         // init total deposited
         useEffect(() => {
             if (syndicateContract) {
                 updateTotalDeposited()
             }
-        }, [syndicateContract])
+        }, [syndicateContract]);
 
         return (
             <>

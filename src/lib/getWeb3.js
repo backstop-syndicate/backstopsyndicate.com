@@ -22,7 +22,8 @@ export default () =>
         // Wait for loading completion to avoid race conditions with web3 injection timing.
         window.addEventListener(`load`, () => {
             resolveWeb3(resolve)
-        })
+        });
+
         // If document has loaded already, try to get Web3 immediately.
         if (document.readyState === `complete`) {
             resolveWeb3(resolve)

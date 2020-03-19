@@ -27,8 +27,8 @@ const Index = ({
     web3,
 }) => {
 
-    const needsMetamask = process.browser ? !window.ethereum : false
-    const disabled = !account
+    const needsMetamask = process.browser ? !window.ethereum : false;
+    const disabled = !account;
 
     return (
         <AppContext.Provider value={{
@@ -50,7 +50,7 @@ const Index = ({
                     padding: 24,
                     textAlign: 'center',
                 }}>
-                    <h1 style={{ fontSize: 32 }}>{decAmount(totalDaiBalance, 18, 2)}</h1>
+                    <h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{decAmount(totalDaiBalance, 18, 2)}</h1>
                     <h3 style={{ marginTop: 12 }}>Total Dai Deposited</h3>
                 </div>
             </Container>
