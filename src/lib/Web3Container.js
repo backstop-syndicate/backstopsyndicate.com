@@ -9,6 +9,16 @@ const Web3Container = (WrappedComponent) => {
         const [account, setAccount] = useState()
         const [contract, setContract] = useState()
     
+        const handleEnable = async () => {
+            try {
+                const accounts = await window.ethereum.enable()
+                console.log(accounts)
+                setAccount(accounts[0])
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
         useEffect(() => {
             async function init() {
                 const web3 = await getWeb3()
@@ -37,42 +47,11 @@ const Web3Container = (WrappedComponent) => {
                 {...props}
                 web3={web3}
                 account={account}
-                contract={contract}
+                onEnable={handleEnable}
+                syndicateContract={contract}
             />
         )
     }
 }
 
 export default Web3Container
-
-        /*
-        // init contract definition
-        useEffect(() => {
-            if (web3) {
-                async function fetchContractDefinition () {
-                    const networkId = await web3.eth.net.getId()
-                    const contractAddress = await web3.eth.ens.getAddress('backstopsyndicate.eth')
-                    setContractDefinition({
-                        abi,
-                        networks: {
-                            [networkId]: {
-                                address: contractAddress
-                            }
-                        }
-                    })
-                }
-                fetchContractDefinition()
-            }
-        }, [web3])
-
-        // init contract
-        useEffect(() => {
-            if (contractDefinition && web3) {
-                async function initContract () {
-                    const contract = await getContract(web3, contractDefinition)
-                    setContract(contract)
-                }
-                initContract()
-            }
-        }, [contractDefinition, web3])
-    */
