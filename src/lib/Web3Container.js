@@ -67,7 +67,7 @@ const Web3Container = (WrappedComponent) => {
 
                 const contract = await getContract(web3, contractDefinition);
 
-                // let holders = await getHolders();
+                let holders = await getHolders(contract);
 
                 setHolders(holders);
                 setWeb3(web3);

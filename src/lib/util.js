@@ -19,70 +19,52 @@ export const numberWithCommas = (x) => {
   return x;
 };
 
-export const getHolders = async () => {
-  let data = localStorage.getItem('holders');
+export const getHolders = async (contract) => {
+  let holders = {};
+  const nullAddress = "0x0000000000000000000000000000000000000000";
 
-  if (data) {
-    data = JSON.parse(data);
-  }
+  let options = {
+    fromBlock: 9700025,
+    toBlock: 'latest'
+  };
 
-  if (!data || lessThanOneMinuteAgo(new Date(data.date))) {
-    let holders = await getTokenData();
+  let events = await contract.getPastEvents("Transfer", options);
 
-    localStorage.setItem('holders', JSON.stringify({
-      date: new Date(),
-      holders
-    }));
+  let unique = new Set();
 
-    return holders;
+  events.forEach((event) => {
+      let { returnValues: { from, to, value } } = event;
 
-  } else {
-    return data.holders;
-  }
-};
+      // incoming == 1, out == 0
+      let incoming = from === nullAddress ? true : false;
 
-const getTokenData = async () => {
-  const address = "0x00000000357646e36fe575885bb3e1a0772e64cc";
+      if (incoming) {
+        let address = to;
 
-  let data = await fetch('https://api.ethplorer.io/getAddressInfo/0xa1d3c765e9a9655e8838bc4a9b16d5e6af024321?apiKey=freekey', { mode: 'cors' });
-  data = await data.json();
+        unique.add(address);
 
-  let tokens = data.tokens;
-  let backstopToken = tokens.filter((token) => {
-    return token.tokenInfo.address === address
+        if (holders[address]) {
+          holders[address] = holders[address].plus(value);
+        } else {
+          holders[address] = new BigNumber(value)
+        }
+      } else {
+        let address = from;
+
+        unique.add(address);
+
+        if (holders[address]) {
+          holders[address] = holders[address].minus(value);
+        } else {
+          holders[address] = new BigNumber(value)
+        }
+      }
   });
 
-  if (backstopToken.length) {
-    let token = backstopToken[0].tokenInfo;
+  Object.keys(holders).forEach((address) => {
+    holders[address] = decAmount(holders[address], 18)
+  });
 
-    return token.holdersCount;
-  } else {
-    return 0;
-  }
+  return holders;
 };
 
-const lessThanOneMinuteAgo = (date) => {
-  const ONE_MINUTE =  60 * 1000;
-  const aMinuteAgo = Date.now() - ONE_MINUTE;
-
-  return date < aMinuteAgo;
-};
-
-// let options = {
-//   fromBlock: 9700025,
-//   toBlock: 'latest'
-// };
-
-// let events = await contract.getPastEvents("Transfer", options);
-//
-// let holders = {};
-// const nullAddress = "0x0000000000000000000000000000000000000000";
-//
-// events.forEach((event) => {
-//     let { returnValues: { from, to} } = event;
-//     if (from === nullAddress) {
-//         console.log("Out");
-//     } else if (to === nullAddress) {
-//         console.log("in");
-//     }
-// });

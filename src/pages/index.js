@@ -56,9 +56,15 @@ const Index = ({
                 }}>
                     <h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{numberWithCommas(decAmount(totalDaiBalance, 18, 2))}</h1>
                     <h3 style={{ marginTop: 12 }}>Total Dai Deposited</h3>
-                    {/*<br />*/}
-                    {/*<h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{holders}</h1>*/}
-                    {/*<h3 style={{ marginTop: 12 }}>Total Participants</h3>*/}
+                    <br />
+                    {
+                        !!holders && (
+                            <div>
+                                <h1 style={{ fontSize: 32, letterSpacing: '.2rem' }}>{Object.keys(holders).length}</h1>
+                                <h3 style={{ marginTop: 12 }}>Total Participants</h3>
+                            </div>
+                        )
+                    }
                 </div>
             </Container>
             {!!web3 ? (
