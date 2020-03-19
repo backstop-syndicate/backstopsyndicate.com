@@ -2,10 +2,12 @@ import React from "react"
 
 import Button from "../components/Button"
 import Buy from '../components/Buy'
+import Container from '../components/Container'
 import Deposit from '../components/Deposit'
 import Preview from "../components/Preview"
 import Withdraw from "../components/Withdraw/Withdraw"
 
+import { decAmount } from '../lib/util'
 import withWeb3 from '../lib/Web3Container'
 import { AppContext } from '../context'
 
@@ -16,6 +18,7 @@ const Index = ({
     enlistedBalance,
     onEnable,
     syndicateContract,
+    totalDaiBalance,
     updateTotalBalance,
     updateUserBalances,
     web3,
@@ -36,6 +39,18 @@ const Index = ({
             web3,
         }}>
             <Preview />
+            <Container>
+                <div style={{
+                    border: '2px solid rgba(255,255,255,0.25)',
+                    borderRadius: 3,
+                    margin: '64px 0',
+                    padding: 24,
+                    textAlign: 'center',
+                }}>
+                    <h1 style={{ fontSize: 32 }}>{decAmount(totalDaiBalance, 18, 2)}</h1>
+                    <h3 style={{ marginTop: 12 }}>Total Dai Deposited</h3>
+                </div>
+            </Container>
             <div style={{
                 margin: '64px 0',
                 position: 'relative',

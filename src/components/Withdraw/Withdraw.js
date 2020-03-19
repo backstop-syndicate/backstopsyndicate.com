@@ -24,6 +24,7 @@ const Withdraw = () => {
     account,
     enlistedBalance,
     syndicateContract,
+    updateTotalBalance,
     updateUserBalances,
   } = useContext(AppContext)
 
@@ -51,6 +52,7 @@ const Withdraw = () => {
           />
         )
         updateUserBalances()
+        updateTotalBalance()
       })
   }
 

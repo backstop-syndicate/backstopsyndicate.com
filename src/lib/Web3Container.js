@@ -34,8 +34,7 @@ const Web3Container = (WrappedComponent) => {
         }
 
         const updateTotalDeposited = async () => {
-            const contractBalance = new BigNumber(await daiContract.methods.balanceOf(syndicateContract.options.address).call())
-            console.log(contractBalance.toFixed())
+            const contractBalance = new BigNumber(await syndicateContract.methods.getDaiBalance().call())
             setTotalDaiBalance(contractBalance)
         }
 

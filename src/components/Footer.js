@@ -25,6 +25,7 @@ export default function Footer() {
                 .footer-container {
                     margin: auto;
                     width: 450px;
+                    padding: 24px;
                 }
                 
                 .footer-container a,  .footer-container span {

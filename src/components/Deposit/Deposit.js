@@ -29,6 +29,7 @@ const Deposit = () => {
     daiBalance,
     daiContract,
     syndicateContract,
+    updateTotalBalance,
     updateUserBalances,
   } = useContext(AppContext)
 
@@ -103,6 +104,7 @@ const Deposit = () => {
         />
       )
       updateUserBalances()
+      updateTotalBalance()
     })
     .catch(e => {
       console.log(e)
