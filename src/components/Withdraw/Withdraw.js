@@ -59,7 +59,7 @@ const Withdraw = () => {
   }
 
   const handleChange = value => {
-    if (!isNaN(value) && bnAmount(value, 18).lte(enlistedBalance)) {
+    if (!isNaN(value) && bnAmount(value, 18).lte(enlistedBalance) || !value) {
       setInputValue(value)
     }
   }

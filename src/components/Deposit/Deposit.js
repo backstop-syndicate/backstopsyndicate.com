@@ -114,7 +114,7 @@ const Deposit = () => {
   }
 
   const handleChange = value => {
-    if (!isNaN(value) && bnAmount(value, 18).lte(daiBalance)) {
+    if (!isNaN(value) && bnAmount(value, 18).lte(daiBalance) || !value) {
       setInputValue(value)
     }
   }
