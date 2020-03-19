@@ -30,7 +30,7 @@ const Deposit = () => {
     daiBalance,
     daiContract,
     syndicateContract,
-    updateTotalBalance,
+    updateTotalDeposited,
     updateUserBalances,
   } = useContext(AppContext)
 
@@ -90,6 +90,7 @@ const Deposit = () => {
       // gasPrice: bnAmount(5, 9).toFixed(),
     })
     .once('transactionHash', hash => {
+      setInputValue('')
       console.log(hash)
       setModal(<TransactionConfirmingModal />)
     })
@@ -101,11 +102,15 @@ const Deposit = () => {
       setModal(
         <TransactionSuccessModal
           onDismiss={() => setModal()}
-          text={`Successfully deposited ${displayAmount} DAI.`}
+          text={`Successfully deposited ${displayAmount} DAI. It may take a few moments for your balance to update.`}
         />
       )
       updateUserBalances()
-      updateTotalBalance()
+      updateTotalDeposited()
+      setTimeout(() => {
+        updateUserBalances()
+        updateTotalDeposited()
+      }, 10000)
     })
     .catch(e => {
       console.log(e)

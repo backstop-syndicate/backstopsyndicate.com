@@ -1,5 +1,8 @@
 import React from "react"
 
+import LinearProgress from '@material-ui/core/LinearProgress'
+import { withStyles } from '@material-ui/core/styles'
+
 import Button from "../components/Button"
 import Buy from '../components/Buy'
 import Container from '../components/Container'
@@ -19,7 +22,7 @@ const Index = ({
     onEnable,
     syndicateContract,
     totalDaiBalance,
-    updateTotalBalance,
+    updateTotalDeposited,
     updateUserBalances,
     web3,
 }) => {
@@ -34,7 +37,7 @@ const Index = ({
             daiContract,
             enlistedBalance,
             syndicateContract,
-            updateTotalBalance,
+            updateTotalDeposited,
             updateUserBalances,
             web3,
         }}>
@@ -51,44 +54,50 @@ const Index = ({
                     <h3 style={{ marginTop: 12 }}>Total Dai Deposited</h3>
                 </div>
             </Container>
-            <div style={{
-                margin: '64px 0',
-                position: 'relative',
-            }}>
-                {!!disabled && !needsMetamask && (
-                    <ActionWrapper>
-                        <div>
-                        <Button
-                            buttonType="success"
-                            onClick={onEnable}
-                        >
-                            Unlock To Continue
-                        </Button>
-                        </div>
-                    </ActionWrapper>
-                )}
-                {!needsMetamask ? (
-                    <div style={{
-                        opacity: disabled ? 0.25 : 1,
-                        pointerEvents: disabled ? 'none' : 'all',
-                    }}>
-                        <Deposit />
-                        <Buy />
-                        <Withdraw />
-                    </div>
-                ) : (
-                    <ActionWrapper>
-                        <div>
+            {!!web3 ? (
+                <div style={{
+                    margin: '64px 0',
+                    position: 'relative',
+                }}>
+                    {!!disabled && !needsMetamask && (
+                        <ActionWrapper>
+                            <div>
                             <Button
                                 buttonType="success"
-                                onClick={() => window.open('https://metamask.io')}
+                                onClick={onEnable}
                             >
-                                Get MetaMask to participate!
+                                Unlock To Continue
                             </Button>
+                            </div>
+                        </ActionWrapper>
+                    )}
+                    {!needsMetamask ? (
+                        <div style={{
+                            opacity: disabled ? 0.25 : 1,
+                            pointerEvents: disabled ? 'none' : 'all',
+                        }}>
+                            <Deposit />
+                            <Buy />
+                            <Withdraw />
                         </div>
-                    </ActionWrapper>
-                )}
-            </div>
+                    ) : (
+                        <ActionWrapper>
+                            <div>
+                                <Button
+                                    buttonType="success"
+                                    onClick={() => window.open('https://metamask.io')}
+                                >
+                                    Get MetaMask to participate!
+                                </Button>
+                            </div>
+                        </ActionWrapper>
+                    )}
+                </div>
+            ) : (
+                <Container>
+                    <ColorLinearProgress />
+                </Container>
+            )}
         </AppContext.Provider>
     );
 }
@@ -104,3 +113,12 @@ const ActionWrapper = ({children }) => (
         {children}
     </div>
 )
+
+const ColorLinearProgress = withStyles({
+    colorPrimary: {
+      backgroundColor: '#086788',
+    },
+    barColorPrimary: {
+      backgroundColor: '#0daee6',
+    },
+  })(LinearProgress)

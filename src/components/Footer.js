@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 export default function Footer() {
     return (
@@ -8,9 +8,9 @@ export default function Footer() {
                     <a>FAQ</a>
                 </Link>
                 <span>|</span>
-                <Link href="https://etherscan.io/address/backstopsyndicate.eth">
+                <a href="https://etherscan.io/address/backstopsyndicate.eth">
                     <a>ETHERSCAN</a>
-                </Link>
+                </a>
                 <span>|</span>
                 <a href="https://github.com/backstop-syndicate" title="Github Page">GITHUB</a>
                 <span>|</span>

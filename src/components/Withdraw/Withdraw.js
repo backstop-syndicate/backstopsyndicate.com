@@ -25,7 +25,7 @@ const Withdraw = () => {
     account,
     enlistedBalance,
     syndicateContract,
-    updateTotalBalance,
+    updateTotalDeposited,
     updateUserBalances,
   } = useContext(AppContext)
 
@@ -38,6 +38,7 @@ const Withdraw = () => {
       // gasPrice: bnAmount(5, 9).toFixed(),
     })
       .once('transactionHash', hash => {
+        setInputValue('')
         setModal(<TransactionConfirmingModal />)
       })
       .on('error', error => {
@@ -53,7 +54,11 @@ const Withdraw = () => {
           />
         )
         updateUserBalances()
-        updateTotalBalance()
+        updateTotalDeposited()
+        setTimeout(() => {
+          updateUserBalances()
+          updateTotalDeposited()
+        }, 10000)
       })
   }
 
