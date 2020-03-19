@@ -86,7 +86,6 @@ export default function Faq() {
                     <ol>
                         <li>Dex.ag</li>
                         <li>Uniswap</li>
-                        <li>Binance</li>
                         <li>OkEx</li>
                         <li>Bitfinex</li>
                     </ol>
