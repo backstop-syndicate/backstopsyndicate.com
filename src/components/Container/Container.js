@@ -9,7 +9,7 @@ const Container = ({ children }) => {
       <style jsx>
       {`
         .container {
-            margin: 12px auto;
+            margin: 24px auto;
             width: 450px;
             position: relative;
         }

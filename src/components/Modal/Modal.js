@@ -16,7 +16,6 @@ const Modal = ({ children, onDismiss }) => (
     zIndex: 100,
   }}>
     <div
-      onClick={onDismiss}
       style={{
         backgroundColor: 'rgba(0,0,0,0.85)',
         position: 'absolute',

@@ -57,6 +57,7 @@ const Deposit = () => {
       setModal(
         <ConfirmApproveModal
           amount={displayAmount}
+          onCancel={() => setModal()}
           onConfirm={() => onApprove(amount, resolve, reject)}
         />
       )
@@ -108,6 +109,16 @@ const Deposit = () => {
     })
   }
 
+  const setMax = () => {
+    setInputValue(decAmount(daiBalance, 18))
+  }
+
+  const handleChange = value => {
+    if (!isNaN(value) && bnAmount(value, 18).lte(daiBalance)) {
+      setInputValue(value)
+    }
+  }
+
   return (
     <>
       <Container>
@@ -126,13 +137,16 @@ const Deposit = () => {
             </div>
           </div>
           <Input
-            type="number"
-            onChange={value => setInputValue(value)}
+            actions={(
+              <Button buttonType="light" onClick={setMax}>Max</Button>
+            )}
+            onChange={handleChange}
             value={inputValue}
           />
           <Hint>I am the hero Defi needs. I am ready to to contribute</Hint>
           <Button
             buttonType="success"
+            disabled={!inputValue}
             onClick={handleDepositClick}
           >
             GO!

@@ -8,7 +8,6 @@ import PublishIcon from '@material-ui/icons/Publish'
 import DoneIcon from '@material-ui/icons/Done'
 
 import Button from '../Button'
-import H3 from '../H3'
 
 const ColorLinearProgress = withStyles({
   colorPrimary: {
@@ -53,14 +52,16 @@ const ModalContent = ({ children }) => (
   </div>
 )
 
-export const ConfirmApproveModal = ({ amount, onConfirm }) => (
+export const ConfirmApproveModal = ({ amount, onCancel, onConfirm }) => (
   <>
     <ModalIcon icon={<LockOpenIcon />} />
     <ModalContent>
-      <H3>You need to approve {amount} DAI before depositing.</H3>
+      <span>You need to approve {amount} DAI before depositing.</span>
     </ModalContent>
     <ModalActions>
-      <div>
+      <div style={{ display: 'flex'}}>
+        <Button buttonType="light" onClick={onCancel}>Cancel</Button>
+        <div style={{ width: 8 }} />
         <Button
           buttonType="success"
           onClick={onConfirm}
@@ -76,7 +77,7 @@ export const ConfirmTransactionModal = () => (
   <>
     <ModalIcon icon={<WalletIcon />} />
     <ModalContent>
-      <H3>Check your wallet to confirm this transaction.</H3>
+      <span>Check your wallet to confirm this transaction.</span>
     </ModalContent>
   </>
 )
@@ -85,7 +86,7 @@ export const TransactionConfirmingModal = () => (
   <>
     <ModalIcon icon={<PublishIcon />} />
     <ModalContent>
-      <H3>Please wait while your transaction confirms.</H3>
+      <span>Please wait while your transaction confirms.</span>
       <ColorLinearProgress />
     </ModalContent>
   </>
@@ -95,7 +96,7 @@ export const TransactionSuccessModal = ({ onDismiss, text }) => (
   <>
     <ModalIcon icon={<DoneIcon />} />
     <ModalContent>
-      <H3>{text}</H3>
+      <span>{text}</span>
     </ModalContent>
     <ModalActions>
       <div>

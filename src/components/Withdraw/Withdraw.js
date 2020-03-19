@@ -54,6 +54,16 @@ const Withdraw = () => {
       })
   }
 
+  const setMax = () => {
+    setInputValue(decAmount(enlistedBalance, 18))
+  }
+
+  const handleChange = value => {
+    if (!isNaN(value) && bnAmount(value, 18).lte(enlistedBalance)) {
+      setInputValue(value)
+    }
+  }
+
   return (
     <>
       <Container>
@@ -73,14 +83,17 @@ const Withdraw = () => {
           </div>
 
           <Input
-            type="number"
-            onChange={value => setInputValue(value)}
+            actions={(
+              <Button buttonType="light" onClick={setMax}>Max</Button>
+            )}
+            onChange={handleChange}
             value={inputValue}
           />
           <Hint>I am not as strong as I imagined. Sorry.</Hint>
 
           <Button
             buttonType="failure"
+            disabled={!inputValue}
             onClick={handleWithdrawClick}
           >
             GET ME OUT.
