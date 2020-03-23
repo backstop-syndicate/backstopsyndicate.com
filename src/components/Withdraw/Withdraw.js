@@ -97,14 +97,14 @@ const Withdraw = () => {
             onChange={handleChange}
             value={inputValue}
           />
-          <Hint>I am not as strong as I imagined. Sorry.</Hint>
+          <Hint>Thank you for your support.</Hint>
 
           <Button
             buttonType="failure"
             disabled={!inputValue}
             onClick={handleWithdrawClick}
           >
-            GET ME OUT.
+            WITHDRAW
           </Button>
         </div>
       </Container>
